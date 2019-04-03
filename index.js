@@ -5,6 +5,10 @@ module.exports = () => {
 // Nombramos variable con el nombre del modulo que queremos importar
 let fs = require('fs');
 let path = require('path');
+//normalizado. 
+// let extname = path.extname()
+
+//READDIR fs 
 
 
 console.log(process.argv);
@@ -14,12 +18,23 @@ console.log(process.argv);
  }
   var docname = grab('--doc');
   
-  if (!user || !docname) {
-      console.log("Falta algo")
+  if (!docname) {
+      console.log("Especifica el nombre del archivo, usa --doc")
   } else {
-      console.log(`${docname} ${user}`)
+      console.log(`${docname}`)
   }
 
+
+  var markdownLinkExtractor = require('markdown-link-extractor');
+
+  var markdown = fs.readFileSync('README.md').toString();
+  
+  var links = markdownLinkExtractor(markdown);
+  
+  links.forEach(function (link) {
+      console.log(`link ${link}`);
+  });
+  
 //Le indicamos el modulo y la acción con tres parámetros. 1o archivo que deseamos leer. 2o parametro opcional (carácteres), 3o Callback con dos parametros, error y el archivo
 fs.readFile(docname, 'utf-8', (err, data) => {
     if (err) {
@@ -29,17 +44,4 @@ fs.readFile(docname, 'utf-8', (err, data) => {
     }
 });
 
-// //Crear Variables para que ingresa el usuario. 
-// //Argumento2
-// let file = process.argv[2]
-// //Ruta absoluta
-// let pathAb = file.path.resolve
-// //extension del archivo. 
-// let ext = file.path.extname
- 
-
-// console.log(path)
-
-//Variable con el nombre del archivo
-// let document = `${docname}`
 
