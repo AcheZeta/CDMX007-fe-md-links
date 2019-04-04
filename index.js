@@ -1,7 +1,3 @@
-module.exports = () => {
-  // ...
-};
-
 // Nombramos variable con el nombre del modulo que queremos importar
 let fs = require('fs');
 let path = require('path');

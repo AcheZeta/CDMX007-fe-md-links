@@ -21,6 +21,9 @@
   },
   "author": "AcheZeta",
   "license": "ISC",
+  "bin": {
+    "md-links": "./index.js"
+  },
   "bugs": {
     "url": "https://github.com/AcheZeta/CDMX007-fe-md-links/issues"
   },
