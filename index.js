@@ -4,11 +4,12 @@ let path = require('path');
 const fetch = require('node-fetch')
 
 console.log(process.argv);
+
 function grab(flag) {
   var index = process.argv.indexOf(flag);
   return (index === -1) ? null : process.argv[index + 1];
 }
-var docname = grab('--doc');
+let docname = grab('--doc');
 
 if (!docname) {
   console.log("Especifica el nombre del archivo, usa --doc")
@@ -17,13 +18,25 @@ if (!docname) {
 }
 
 //Convertir el Path 
-let filePath = docname  
+let filePath = docname
 let pathResolve = path.resolve(filePath)
 let pathNormalize = path.normalize(pathResolve)
-// let pathExtName = path.extname(pathNormalize)
-// console.log(`RUTA Normalize: ${pathExtName}`)
+let pathExtName = path.extname(pathNormalize)
+console.log(`RUTA Normalize: ${pathExtName}`)
 
+const validate = (docname) => {
+  docname.forEach(element => {
+    fetch(res => element)
+      .then(res => {
+        const linkStatus = `Element ${element} status${res.status} text${res.statusText}`
+        console.log(linkStatus)
+      })
+      .catch(err => console.log(err))
+  });
+}
 
+console.log(validate)
+//   )
 
 //Le indicamos el modulo y la acción con tres parámetros. 1o archivo que deseamos leer. 2o parametro opcional (carácteres), 3o Callback con dos parametros, error y el archivo
 function readFiles() {
