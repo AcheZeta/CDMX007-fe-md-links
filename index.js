@@ -1,21 +1,40 @@
-module.exports = () => {
-  // ...
-};
-
-//Nombramos variable con el nombre del modulo que queremos importar
+// Nombramos variable con el nombre del modulo que queremos importar
 let fs = require('fs');
-//Variable con el nombre del archivo
-let document = ('./README.md')
-//Le indicamos el modulo y la acción con tres parámetros.
-//1o archivo que deseamos leer.
-//2o parametro opcional (carácteres)
-//3o Callback con dos parametros, error y el archivo
-fs.readFile(document, 'utf-8', (err, data) => {
+let path = require('path');
+const fetch = require('node-fetch')
+
+console.log(process.argv);
+function grab(flag) {
+  var index = process.argv.indexOf(flag);
+  return (index === -1) ? null : process.argv[index + 1];
+}
+var docname = grab('--doc');
+
+if (!docname) {
+  console.log("Especifica el nombre del archivo, usa --doc")
+} else {
+  readFiles()
+}
+
+//Convertir el Path 
+let filePath = docname  
+let pathResolve = path.resolve(filePath)
+let pathNormalize = path.normalize(pathResolve)
+// let pathExtName = path.extname(pathNormalize)
+// console.log(`RUTA Normalize: ${pathExtName}`)
+
+
+
+//Le indicamos el modulo y la acción con tres parámetros. 1o archivo que deseamos leer. 2o parametro opcional (carácteres), 3o Callback con dos parametros, error y el archivo
+function readFiles() {
+  fs.readFile(docname, 'utf-8', (err, data) => {
     if (err) {
-        console.log('error: ', err);
+      console.log('error: ', err);
     } else {
-        console.log(data);
+      const regExp = /(https?:\/\/[^\s]+)/g;
+      const result = data.match(regExp);
+      console.log(data);
+      console.log(`link ${result}`)
     }
-});
-
-
+  });
+}
