@@ -1,9 +1,9 @@
 // Nombramos variable con el nombre del modulo que queremos importar
 let fs = require('fs');
 let path = require('path');
+const fetch = require('node-fetch')
 
 console.log(process.argv);
-
 function grab(flag) {
   var index = process.argv.indexOf(flag);
   return (index === -1) ? null : process.argv[index + 1];
@@ -16,8 +16,17 @@ if (!docname) {
   readFiles()
 }
 
+//Convertir el Path 
+let filePath = docname  
+let pathResolve = path.resolve(filePath)
+let pathNormalize = path.normalize(pathResolve)
+// let pathExtName = path.extname(pathNormalize)
+// console.log(`RUTA Normalize: ${pathExtName}`)
+
+
+
 //Le indicamos el modulo y la acción con tres parámetros. 1o archivo que deseamos leer. 2o parametro opcional (carácteres), 3o Callback con dos parametros, error y el archivo
-function readFiles(){
+function readFiles() {
   fs.readFile(docname, 'utf-8', (err, data) => {
     if (err) {
       console.log('error: ', err);
@@ -29,5 +38,3 @@ function readFiles(){
     }
   });
 }
-
-
