@@ -21,8 +21,7 @@ if (!docname) {
 let filePath = docname
 let pathResolve = path.resolve(filePath)
 let pathNormalize = path.normalize(pathResolve)
-let pathExtName = path.extname(pathNormalize)
-console.log(`RUTA Normalize: ${pathExtName}`)
+// let pathExtName = path.extname(pathNormalize)
 
 const validate = (docname) => {
   docname.forEach(element => {
@@ -47,7 +46,7 @@ function readFiles() {
       const regExp = /(https?:\/\/[^\s]+)/g;
       const result = data.match(regExp);
       console.log(data);
-      console.log(`link ${result}`)
+      console.log(`links: ${result}`)
     }
   });
 }
